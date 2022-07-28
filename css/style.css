@@ -1,0 +1,149 @@
+
+
+body {
+    margin: 0;
+
+    background-color: black;
+
+    overflow-x: hidden;
+}
+
+* {
+    color: white;
+}
+
+#content {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 100px calc(100% - 100px);
+
+    width: 100vw;
+    height: 100vh;
+}
+
+#inputoutput-field {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+#header-field {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+#texturepreviews-field {
+    grid-row-start: 2;
+    grid-row-end: 4;
+    grid-column-start: 2;
+    grid-column-end: 3;
+
+    overflow-y: auto;
+}
+
+
+fieldset {
+    background-color: #111;
+}
+
+fieldset > :not(:first-child) {
+    margin-top: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+
+    resize: none;
+    white-space: nowrap;
+
+    background-color: #222;
+}
+
+
+
+a {
+    color: rgb(67, 113, 250);
+}
+
+
+#inputoutput-split {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+[mipmap] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+[mipmap="0"] canvas { width: 100%; }
+[mipmap="1"] canvas { width: 80%; }
+[mipmap="2"] canvas { width: 64%; }
+[mipmap="3"] canvas { width: 51%; }
+[mipmap="4"] canvas { width: 41%; }
+[mipmap="5"] canvas { width: 33%; }
+[mipmap="6"] canvas { width: 26%; }
+[mipmap="7"] canvas { width: 21%; }
+[mipmap="8"] canvas { width: 17%; }
+[mipmap="9"] canvas { width: 13%; }
+
+
+canvas {
+    image-rendering: pixelated;
+
+    background-image: url('../resource/transparency.png');
+    background-size: 32px 32px;
+    background-attachment: fixed;
+}
+
+.canvasSmoothing {
+    image-rendering: auto;
+}
+
+#sprayPreview {
+    height: 100vh;
+}
+
+button {
+    color: black;
+}
+
+#highResImageData {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input[type="number"] {
+    width: 60px;
+
+    background-color: #222;
+    border: 1px solid #333;
+}
+
+select {
+    background-color: #222;
+}
+
+option {
+    background-color: #222;
+}
+
+
+#lumMuls > input {
+    width: 100px;
+}
+
+#lumMuls > input::-webkit-inner-spin-button {
+    display: none;
+}

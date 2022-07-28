@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>TF2 Spray Creator</title>
+    <link rel="icon" href="./resource/favicon.png">
+
+    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- TF2 Spray Creator code -->
+    <script defer type="module" src="./src/main.js"></script>
+
+    <!-- Loading VTF test -->
+    <!-- <script defer type="module" src="./src/loadTest.js"></script> -->
+
+</head>
+<body>
+
+    <div id="content">
+
+        <fieldset id="inputoutput-field">
+            <legend>Input / Output</legend>
+            <div id="inputoutput-split">
+                <div>
+                    <!-- <input type="file"> -->
+                    <a id="download" download="converted.vtf" style="color: red;">Download VTF - Unavailable</a>
+                </div>
+                <div>
+                    <div>
+                        Converter Version: <b id="version"></b>
+                    </div>
+                    <div>
+                        VTF Version: <b>7.4</b>
+                    </div>
+                    <div style="font-size: 12px;">
+                        * This is using <a href="https://github.com/Potat05">ValveUtils</a>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset id="header-field">
+            <legend>VTF Header</legend>
+
+            <div>
+                Format:
+                <select id="format">
+                    <option value="0" title="Full color, full transparency">RGBA8888 - 32bpp</option>
+                    <option value="2" title="Full color, no transparency">RGB888 - 24bpp</option>
+                    <option value="4" title="Reduced color, no transparency">RGB565 - 16bpp</option>
+                    <option value="5" title="Grayscale, no transparency">I8 - 8bpp</option>
+                    <option value="6" title="Grayscale, full transparency">IA88 - 16bpp</option>
+                    <!-- <option value="13" title="Compressed color, no transparency (DON'T USE!)">DXT1 - 4bpp</option> -->
+                    <option value="19" title="Reduced color, Reduced transparency">BGRA4444 - 16bpp</option>
+                    <option value="20" title="Compressed color, on/off transparency" selected>DXT1_ONEBITALPHA - 4bpp</option>
+                    <option value="21" title="Reduced color, on/off transparency">BGRA5551 - 16bpp</option>
+                </select>
+            </div>
+
+            <div>
+                Size:
+                <input id="imageWidth" type="number" step="4" max="2048" value="1024">
+                x
+                <input id="imageHeight" type="number" step="4" max="2048" value="1020">
+            </div>
+
+            <div>
+                Sampling Method: 
+                <select id="sampleMethod">
+                    <option value="point">Point Sample (Use for pixel art)</option>
+                    <option value="trilinear">Trilinear (May produce blurry image)</option>
+                    <option value="anisotropic" selected>Anisotropic (Usually best method)</option>
+                </select>
+            </div>
+
+            <div>
+                Embeded JSON: 
+                <textarea id="resource-KVD">
+"File_Info": {
+    "Date": %date(true)%,
+    "Comment": "",
+    "Creator": {
+        "Creator": "",
+        "Steam": ""
+    },
+    "Source": {
+        "Author": "",
+        "Url": ""
+    },
+    "Converter": {
+        "Url": %converter%,
+        "Version": %version%,
+        "Dithered": %dithered%
+    }
+}</textarea>
+            </div>
+
+            <div>
+                CRC: 
+                <input id="resource-CRC" type="checkbox" checked></input>
+            </div>
+
+            <div>
+                Mipmaps: 
+                <input id="mipmapCount" type="number" min="1" step="1" value="1">
+            </div>
+
+        </fieldset>
+
+        <fieldset id="texturepreviews-field">
+            <legend>VTF Texture Preview</legend>
+
+            <div>
+                Image Smoothing:
+                <input id="imageSmoothing" type="checkbox" checked>
+            </div>
+            <div>
+                Image Fit:
+                <select id="imageFit">
+                    <option value="none">None</option>
+                    <option value="contain" selected>Contain</option>
+                    <option value="cover">Cover</option>
+                    <option value="strech">Strech</option>
+                </select>
+            </div>
+
+            <div class="hidden" formats="4 19 20 21">
+                Dither: 
+                <input id="dither" type="checkbox" checked>
+            </div>
+            <div class="hidden" formats="20 21">
+                Transparency Threshold: 
+                <input id="transparencyThreshold" type="range" min="0" max="255" step="1" value="127" checked>
+            </div>
+            <div class="hidden" formats="2 4">
+                Transparency Color: 
+                <input id="transparencyColor" type="color">
+            </div>
+            <div class="hidden" formats="5 6" id="lumMuls">
+                Luminance Muls:
+                <input id="lumMulR" type="number" min="0" max="1" value="0.2126">
+                <input id="lumMulG" type="number" min="0" max="1" value="0.7152">
+                <input id="lumMulB" type="number" min="0" max="1" value="0.0722">
+            </div>
+            <div class="hidden" formats="5">
+                Transparency Luminance: 
+                <input id="transparencyLuminance" type="number" min="0" max="255" step="1" value="255">
+            </div>
+            <div class="hidden" formats="13">
+                Refine:
+                <select id="refineCount">
+                    <option value="0">Low</option>
+                    <option value="1">Medium (Broken, May produce artifacts)</option>
+                    <option value="2">High (Broken, May produce artifacts)</option>
+                </select>
+            </div>
+
+            <div id="lowResImageData"></div>
+            <div id="texturesHighRes"></div>
+        </fieldset>
+
+    </div>
+
+    <!-- <canvas id="sprayPreview"></canvas> -->
+    
+</body>
+</html>
