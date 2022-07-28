@@ -4,7 +4,7 @@ import { fileSize, getImage, hexToRgb, imageDataToImage, nodeStr, strFuncs } fro
 
 const DEFAULT_IMAGE = './resource/colorchart.jpg';
 
-const LINK = 'https://github.com/Potat05/Valve-Utils';
+const LINK = 'https://potat05.github.io/Valve-Utils/';
 const VERSION = '1.0';
 document.querySelector('#version').innerText = VERSION;
 
