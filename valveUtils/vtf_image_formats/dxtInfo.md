@@ -45,12 +45,8 @@ struct DXT3_Block {
     // Color palette
     Uint16 color0; // (RGB565)
     Uint16 color1; // (RGB565)
-    // IF color0 > color1
-        // color2 = 2/3 of color0 + 1/3 of color1
-        // color3 = 1/3 of color0 + 2/3 of color1
-    // ELSE
-        // color2 = 1/2 of color0 + 1/2 of color1
-        // color3 = black
+    // color2 = 2/3 of color0 + 1/3 of color1
+    // color3 = 1/3 of color0 + 2/3 of color1
 
     // Pixels to pick color from palette
     Uint2 pixels[16];
@@ -69,12 +65,8 @@ struct DXT5_Block {
     // Color palette
     Uint16 color0; // (RGB565)
     Uint16 color1; // (RGB565)
-    // IF color0 > color1
-        // color2 = 2/3 of color0 + 1/3 of color1
-        // color3 = 1/3 of color0 + 2/3 of color1
-    // ELSE
-        // color2 = 1/2 of color0 + 1/2 of color1
-        // color3 = black
+    // color2 = 2/3 of color0 + 1/3 of color1
+    // color3 = 1/3 of color0 + 2/3 of color1
 
     // Pixels to pick color from palette
     Uint2 pixels[16];
