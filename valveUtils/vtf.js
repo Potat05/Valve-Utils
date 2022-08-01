@@ -230,7 +230,7 @@ class VTF {
         if(set === true) {
             this.file.$header.$flags.value |= VTF_FLAGS_BIT[flag];
         } else if(set === false) {
-            this.file.$header.$flags.value &= 0xFFFFFFFF & VTF_FLAGS_BIT[flag];
+            this.file.$header.$flags.value &= 0xFFFFFFFF ^ VTF_FLAGS_BIT[flag];
         }
         
         return (this.file.$header.flags & VTF_FLAGS_BIT[flag] != 0)
