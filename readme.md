@@ -72,5 +72,5 @@ vtf.url; // For downloading
 
 # Information  
 
-[DXT Image Compression](https://github.com/nothings/stb/blob/master/stb_dxt.h)  
+[DXT Image Format](https://github.com/Potat05/Valve-Utils/blob/main/valveUtils/vtf_image_formats/dxtInfo.md)  
 [BC Image Compression](https://github.com/microsoft/DirectXTex)
