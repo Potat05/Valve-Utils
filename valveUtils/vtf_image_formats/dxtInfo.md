@@ -42,6 +42,10 @@ Each block is 128 bits in total (8 bits per pixel)
 DXT3 block is as follows
 ```c++
 struct DXT3_Block {
+    // Alpha transparency per pixel
+    Uint4 alphas[16];
+
+
     // Color palette
     Uint16 color0; // (RGB565)
     Uint16 color1; // (RGB565)
@@ -50,9 +54,6 @@ struct DXT3_Block {
 
     // Pixels to pick color from palette
     Uint2 pixels[16];
-
-    // Alpha transparency per pixel
-    Uint4 alphas[16];
 }
 ```
 
@@ -62,15 +63,6 @@ Each block is 128 bits in total (8 bits per pixel)
 DXT5 block is as follows
 ```c++
 struct DXT5_Block {
-    // Color palette
-    Uint16 color0; // (RGB565)
-    Uint16 color1; // (RGB565)
-    // color2 = 2/3 of color0 + 1/3 of color1
-    // color3 = 1/3 of color0 + 2/3 of color1
-
-    // Pixels to pick color from palette
-    Uint2 pixels[16];
-
     // Alpha palette
     Uint8 alpha0;
     Uint8 alpha1;
@@ -91,6 +83,16 @@ struct DXT5_Block {
 
     // Alphas to pick alpha from alpha palette
     Uint3 alphas[16];
+
+
+    // Color palette
+    Uint16 color0; // (RGB565)
+    Uint16 color1; // (RGB565)
+    // color2 = 2/3 of color0 + 1/3 of color1
+    // color3 = 1/3 of color0 + 2/3 of color1
+
+    // Pixels to pick color from palette
+    Uint2 pixels[16];
 }
 ```
   
