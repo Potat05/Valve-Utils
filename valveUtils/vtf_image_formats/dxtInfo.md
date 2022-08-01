@@ -1,36 +1,17 @@
 
-# DXT Block
+# DXT Block (BC)  
 
 DXT texture is made up of 4x4 blocks
 
-Each pixels block (10x10)
-<pre style="color: lime;">
-0 0 0 0 1 1 1 1
-0 0 0 0 1 1 1 1
-0 0 0 0 1 1 1 1
-0 0 0 0 1 1 1 1
-2 2 2 2 3 3 3 3
-2 2 2 2 3 3 3 3
-2 2 2 2 3 3 3 3
-2 2 2 2 3 3 3 3
-</pre>
+Each pixels block (8x8)  
+![Alt text](./dxtinfo-1.png "8x8 Block Preview")
   
 Because each block is 4x4 pixels the whole image width & height must be a multiple of 4!  
 There is a workaround for this however.  
 The image can be any size but the data is actually padded to fit the size  
   
 Padded pixels block (10x5)  
-<pre style="color: lime;">
-0 0 0 0 1 1 1 1 2 2 <span style="color: red;">2 2</span>
-0 0 0 0 1 1 1 1 2 2 <span style="color: red;">2 2</span>
-0 0 0 0 1 1 1 1 2 2 <span style="color: red;">2 2</span>
-0 0 0 0 1 1 1 1 2 2 <span style="color: red;">2 2</span>
-3 3 3 3 4 4 4 4 5 5 <span style="color: red;">5 5</span>
-<span style="color: red;">3 3 3 3 4 4 4 4 5 5 5 5</span>
-<span style="color: red;">3 3 3 3 4 4 4 4 5 5 5 5</span>
-<span style="color: red;">3 3 3 3 4 4 4 4 5 5 5 5</span>
-</pre>
-
+![Alt text](./dxtinfo-2.png "10x5 Block Preview")
 
 # DXT1 Block
 
@@ -120,3 +101,8 @@ struct DXT5_Block {
     Uint3 alphas[16];
 }
 ```
+  
+# Other Information  
+  
+[DXT/BC Implementation](https://github.com/microsoft/DirectXTex)  
+  
