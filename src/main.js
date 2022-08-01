@@ -26,7 +26,7 @@ const LuminanceMulBInput = document.querySelector('#lumMulB');
 const transparencyLuminanceInput = document.querySelector('#transparencyLuminance');
 const samplingMethodInput = document.querySelector('#sampleMethod');
 const mipmapCountInput = document.querySelector('#mipmapCount');
-const refineCountInput = document.querySelector('#refineCount');
+const lowresInput = document.querySelector('#lowres');
 
 /** @type {HTMLDivElement} */
 const texturesHighRes = document.querySelector('#texturesHighRes');
@@ -53,8 +53,7 @@ function getTextureOptions() {
         transparentColor: hexToRgb(transparencyColorInput.value),
         lumMuls: [parseFloat(LuminanceMulRInput.value), parseFloat(LuminanceMulGInput.value), parseFloat(LuminanceMulBInput.value)],
         transparentLum: parseInt(transparencyLuminanceInput.value),
-        alphaThreshold: parseInt(transparencyThresholdInput.value),
-        refineCount: parseInt(refineCountInput.value)
+        alphaThreshold: parseInt(transparencyThresholdInput.value)
     }
 }
 function getImageOptions() {
@@ -138,6 +137,8 @@ function generateImage(mipmap=0) {
         }
     }
     if(!imgsrc) imgsrc = DEFAULT_IMAGE;
+
+    lowRes()
 
     getImage(imgsrc).then(async img => {
         // Set texture at mip
@@ -288,7 +289,7 @@ mipmapCountInput.addEventListener('change', () => {
     });
 });
 
-[imageSmoothingInput, imageFitInput, ditherInput, transparencyThresholdInput, transparencyColorInput, LuminanceMulRInput, LuminanceMulGInput, LuminanceMulBInput, transparencyLuminanceInput, refineCountInput].forEach(elem => {
+[imageSmoothingInput, imageFitInput, ditherInput, transparencyThresholdInput, transparencyColorInput, LuminanceMulRInput, LuminanceMulGInput, LuminanceMulBInput, transparencyLuminanceInput].forEach(elem => {
     elem.addEventListener('change', () => {
         for(let i=0; i < parseInt(mipmapCountInput.value); i++) {
             generateImage(i);
@@ -302,6 +303,18 @@ mipmapCountInput.addEventListener('change', () => {
         generateDownload();
     });
 });
+
+function lowRes() {
+    if(lowresInput.checked) {
+        const src = document.querySelector('[mipmap="0"] input[type="file"]')?.files[0] ?? DEFAULT_IMAGE;
+        getImage(src).then(img => {
+            vtf.resource_lowResImageData(img, { dither: true }, { smoothing: true, fit: 'contain' });
+        });
+    } else {
+        vtf.removeResource(VTF.RESOURCES_TYPES.LOWRES_IMAGEDATA);
+    }
+}
+lowresInput.addEventListener('change', lowRes);
 
 
 

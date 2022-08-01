@@ -66,7 +66,6 @@ vtf.url; // For downloading
 
 * Clean/refactor code  
 * VMT Format 
-* DXT1 Image Format (Make better) 
 * DXT3 Image Format
 * DXT5 Image Format
 

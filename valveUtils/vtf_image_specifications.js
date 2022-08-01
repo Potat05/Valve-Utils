@@ -15,7 +15,7 @@ const VTF_IMAGE_SPECIFICATIONS = {
     4: { to: ImageData_to_RGB565, from: RGB565_to_ImageData, size: RGB565_size },
     5: { to: ImageData_to_I8, from: I8_to_ImageData, size: I8_size },
     6: { to: ImageData_to_IA88, from: IA88_to_ImageData, size: IA88_size },
-    13: { to: ImageData_to_DXT1, from: DXT1_to_ImageData, size: DXT1_size }, // YOU SHOULD NOT USE THIS USE DXT1_ONEBITALPHA
+    13: { to: ImageData_to_DXT1, from: DXT1_to_ImageData, size: DXT1_size },
     19: { to: ImageData_to_BGRA4444, from: BGRA4444_to_ImageData, size: BGRA4444_size },
     20: { to: ImageData_to_DXT1_ONEBITALPHA, from: DXT1_ONEBITALPHA_to_ImageData, size: DXT1_ONEBITALPHA_size },
     21: { to: ImageData_to_BGRA5551, from: BGRA5551_to_ImageData, size: BGRA5551_size }

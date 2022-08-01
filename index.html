@@ -13,11 +13,12 @@
     <!-- TF2 Spray Creator code -->
     <script defer type="module" src="./src/main.js"></script>
 
-    <!-- Loading VTF test -->
-    <!-- <script defer type="module" src="./src/loadTest.js"></script> -->
-
 </head>
 <body>
+
+    <div id="generateOverlay" class="hidden">
+        <progress></progress>
+    </div>
 
     <div id="content">
 
@@ -26,7 +27,10 @@
             <div id="inputoutput-split">
                 <div>
                     <!-- <input type="file"> -->
-                    <a id="download" download="converted.vtf" style="color: red;">Download VTF - Unavailable</a>
+                    <div>
+                        <button id="generate" style="margin-right: 10px;">Generate</button>
+                        <a id="download" download="converted.vtf" style="color: red;">Download VTF - Unavailable</a>
+                    </div>
                 </div>
                 <div>
                     <div>
@@ -36,7 +40,7 @@
                         VTF Version: <b>7.4</b>
                     </div>
                     <div style="font-size: 12px;">
-                        * This is using <a href="https://github.com/Potat05/Valve-Utils">ValveUtils</a>
+                        * This is using <a href="https://github.com/Potat05/Valve-Utils" target="_blank">ValveUtils</a>
                     </div>
                 </div>
             </div>
@@ -53,9 +57,8 @@
                     <option value="4" title="Reduced color, no transparency">RGB565 - 16bpp</option>
                     <option value="5" title="Grayscale, no transparency">I8 - 8bpp</option>
                     <option value="6" title="Grayscale, full transparency">IA88 - 16bpp</option>
-                    <!-- <option value="13" title="Compressed color, no transparency (DON'T USE!)">DXT1 - 4bpp</option> -->
+                    <option value="13" title="Compressed color, on/off transparency" selected>DXT1_ONEBITALPHA - 4bpp</option>
                     <option value="19" title="Reduced color, Reduced transparency">BGRA4444 - 16bpp</option>
-                    <option value="20" title="Compressed color, on/off transparency" selected>DXT1_ONEBITALPHA - 4bpp</option>
                     <option value="21" title="Reduced color, on/off transparency">BGRA5551 - 16bpp</option>
                 </select>
             </div>
@@ -68,7 +71,7 @@
             </div>
 
             <div>
-                Sampling Method: 
+                Sampling Method:
                 <select id="sampleMethod">
                     <option value="point">Point Sample (Use for pixel art)</option>
                     <option value="trilinear">Trilinear (May produce blurry image)</option>
@@ -77,7 +80,7 @@
             </div>
 
             <div>
-                Embeded JSON: 
+                Embeded JSON:
                 <textarea id="resource-KVD">
 "File_Info": {
     "Date": %date(true)%,
@@ -99,13 +102,18 @@
             </div>
 
             <div>
-                CRC: 
+                CRC:
                 <input id="resource-CRC" type="checkbox" checked></input>
             </div>
 
             <div>
-                Mipmaps: 
+                Mipmaps:
                 <input id="mipmapCount" type="number" min="1" step="1" value="1">
+            </div>
+
+            <div>
+                Thumbnail:
+                <input id="lowres" type="checkbox" checked>
             </div>
 
         </fieldset>
@@ -127,16 +135,16 @@
                 </select>
             </div>
 
-            <div class="hidden" formats="4 19 20 21">
-                Dither: 
+            <div class="hidden" formats="4 13 19 20 21">
+                Dither:
                 <input id="dither" type="checkbox" checked>
             </div>
-            <div class="hidden" formats="20 21">
-                Transparency Threshold: 
+            <div class="hidden" formats="13 20 21">
+                Transparency Threshold:
                 <input id="transparencyThreshold" type="range" min="0" max="255" step="1" value="127" checked>
             </div>
             <div class="hidden" formats="2 4">
-                Transparency Color: 
+                Transparency Color:
                 <input id="transparencyColor" type="color">
             </div>
             <div class="hidden" formats="5 6" id="lumMuls">
@@ -146,16 +154,8 @@
                 <input id="lumMulB" type="number" min="0" max="1" value="0.0722">
             </div>
             <div class="hidden" formats="5">
-                Transparency Luminance: 
+                Transparency Luminance:
                 <input id="transparencyLuminance" type="number" min="0" max="255" step="1" value="255">
-            </div>
-            <div class="hidden" formats="13">
-                Refine:
-                <select id="refineCount">
-                    <option value="0">Low</option>
-                    <option value="1">Medium (Broken, May produce artifacts)</option>
-                    <option value="2">High (Broken, May produce artifacts)</option>
-                </select>
             </div>
 
             <div id="lowResImageData"></div>
@@ -165,6 +165,6 @@
     </div>
 
     <!-- <canvas id="sprayPreview"></canvas> -->
-    
+
 </body>
 </html>

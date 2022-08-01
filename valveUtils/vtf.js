@@ -357,7 +357,7 @@ class VTF {
      * @param {number} frames
      * @returns {number} New number of mipmaps
      */
-    resource_highResImageData(format=VTF_IMAGE_FORMATS.BGRA4444, width=512, height=512, mipmaps=1, frames=1) {
+    resource_highResImageData(format=VTF_IMAGE_FORMATS.DXT1, width=512, height=512, mipmaps=1, frames=1) {
         // If highres image data resource entry doesn't already exist create it
         if(!this.file.$header.$resourceEntries.member(VTF.RESOURCES_TYPES.HIGHRES_IMAGEDATA)) {
             this.file.$header.$resourceEntries.addMember(new Types.Struct(VTF.RESOURCES_TYPES.HIGHRES_IMAGEDATA, [
@@ -410,6 +410,7 @@ class VTF {
         ].includes(this.highResImageFormat));
         this.flag('ONEBITALPHA', [
             VTF.IMAGE_FORMATS.BGRA5551,
+            VTF.IMAGE_FORMATS.DXT1,
             VTF.IMAGE_FORMATS.DXT1_ONEBITALPHA
         ].includes(this.highResImageFormat));
 
@@ -466,7 +467,7 @@ class VTF {
         return new Promise((resolve, reject) => {
             // Add a new texture to the queue
             const texture = this.getTexture(pos);
-            if(!texture) return;
+            if(!texture) resolve(null);
 
             textureWorker.postMessage({
                 type: 'add',
@@ -493,6 +494,44 @@ class VTF {
         });
     }
 
+    /**
+     * Low res image data.
+     * 
+     * @param {ImageData} img
+     * @param {{lumMuls:number[], transparentLum:number, transparentColor:number[], dither:boolean, ditherAlpha:boolean, alphaThreshold:number, refineCount:number}} converterOptions 
+     * @param {{smoothing: boolean, fit: "none"|"contain"|"cover"|"strech"}} imageOptions
+     * @returns {Uint8Array} texture data
+     */
+    resource_lowResImageData(img, converterOptions={}, imageOptions={}) {
+        // If lowres image data resource entry doesn't already exist create it
+        if(!this.file.$header.$resourceEntries.member(VTF.RESOURCES_TYPES.LOWRES_IMAGEDATA)) {
+            this.file.$header.$resourceEntries.addMember(new Types.Struct(VTF.RESOURCES_TYPES.LOWRES_IMAGEDATA, [
+                new Types.Uint8Array('tag', RESOURCE_TAGS.LOWRES_IMAGEDATA),
+                new Types.Uint8('flags', 0x00),
+                new Types.Uint32('offset', 0),
+                new Types.Identifier('offsetTo', `resource_${VTF.RESOURCES_TYPES.LOWRES_IMAGEDATA}`)
+            ]));
+        }
+
+        // Set header image data
+        this.file.$header.lowResImageWidth = 16;
+        this.file.$header.lowResImageHeight = 16;
+        this.file.$header.lowResImageFormat = VTF.IMAGE_FORMATS.DXT1;
+
+        // Texture
+        const texture = new VTF_Texture(VTF.IMAGE_FORMATS.DXT1, new Pos(), 16, 16);
+        texture.to(img, converterOptions, imageOptions);
+        const data = texture.bytes;
+
+        // Resource
+        this.file.removeMember(`resource_${VTF.RESOURCES_TYPES.LOWRES_IMAGEDATA}`);
+        this.file.addMember(new Types.Uint8Array(`resource_${VTF.RESOURCES_TYPES.LOWRES_IMAGEDATA}`, data));
+        
+        this.updateHeader();
+
+        return data;
+    }
+    
 
 
 
