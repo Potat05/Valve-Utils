@@ -64,6 +64,7 @@ vtf.url; // For downloading
 
 # TODO  
 
+* DXT compression to allow non-multiple of 4
 * Clean/refactor code  
 * VMT Format 
 * DXT3 Image Format

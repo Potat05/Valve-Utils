@@ -3,8 +3,8 @@
 
 DXT texture is made up of 4x4 blocks
 
-each pixels block (Because they are 4x4 blocks the image width & height must be a multiple of 4!)
-```
+Each pixels block (10x10)
+<pre style="color: lime;">
 0 0 0 0 1 1 1 1
 0 0 0 0 1 1 1 1
 0 0 0 0 1 1 1 1
@@ -13,7 +13,24 @@ each pixels block (Because they are 4x4 blocks the image width & height must be 
 2 2 2 2 3 3 3 3
 2 2 2 2 3 3 3 3
 2 2 2 2 3 3 3 3
-```
+</pre>
+  
+Because each block is 4x4 pixels the whole image width & height must be a multiple of 4!  
+There is a workaround for this however.  
+The image can be any size but the data is actually padded to fit the size  
+  
+Padded pixels block (10x5)  
+<pre style="color: lime;">
+0 0 0 0 1 1 1 1 2 2 <span style="color: red;">2 2</span>
+0 0 0 0 1 1 1 1 2 2 <span style="color: red;">2 2</span>
+0 0 0 0 1 1 1 1 2 2 <span style="color: red;">2 2</span>
+0 0 0 0 1 1 1 1 2 2 <span style="color: red;">2 2</span>
+3 3 3 3 4 4 4 4 5 5 <span style="color: red;">5 5</span>
+<span style="color: red;">3 3 3 3 4 4 4 4 5 5 5 5</span>
+<span style="color: red;">3 3 3 3 4 4 4 4 5 5 5 5</span>
+<span style="color: red;">3 3 3 3 4 4 4 4 5 5 5 5</span>
+</pre>
+
 
 # DXT1 Block
 
