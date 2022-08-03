@@ -397,22 +397,20 @@ class VTF {
         }).reverse().flat();
         this.file.addMember(new Types.Struct(`resource_${VTF.RESOURCES_TYPES.HIGHRES_IMAGEDATA}`, textures));
 
-        // Set flags
-        this.flag('NOMIP', (this.mipmapCount == 1));
-        this.flag('HINT_DXT5', (this.highResImageFormat == VTF.IMAGE_FORMATS.DXT5));
-        this.flag('EIGHTBITALPHA', [
-            VTF.IMAGE_FORMATS.A8,
-            VTF.IMAGE_FORMATS.ABGR8888,
-            VTF.IMAGE_FORMATS.ARGB8888,
-            VTF.IMAGE_FORMATS.BGRA8888,
-            VTF.IMAGE_FORMATS.IA88,
-            VTF.IMAGE_FORMATS.RGBA8888
-        ].includes(this.highResImageFormat));
-        this.flag('ONEBITALPHA', [
-            VTF.IMAGE_FORMATS.BGRA5551,
-            VTF.IMAGE_FORMATS.DXT1,
-            VTF.IMAGE_FORMATS.DXT1_ONEBITALPHA
-        ].includes(this.highResImageFormat));
+
+        
+        // Skybox stuff
+        // this.flag('NOMIP', (this.mipmapCount == 1));
+        // this.flag('HINT_DXT5', (this.highResImageFormat == VTF.IMAGE_FORMATS.DXT5));
+
+        // Set if texture isn't going to be tiled!
+        this.flag('CLAMPS', true);
+        this.flag('CLAMPT', true);
+        // this.flag('CLAMPU', true); // volumetric
+        
+        this.flag('EIGHTBITALPHA', true);
+
+        
 
         this.updateHeader();
 
