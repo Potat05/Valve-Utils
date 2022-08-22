@@ -85,7 +85,7 @@ function crc32(arr) {
     for(let i=0; i < arr.length; i++) {
         crc = (crc >> 8) ^ CRC_TABLE[(crc ^ arr[i]) & 0xFF];
     }
-    return crc ^ 0xFFFFFFFF;
+    return (crc ^ 0xFFFFFFFF) >>> 0;
 }
 
 
